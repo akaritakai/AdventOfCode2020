@@ -48,6 +48,10 @@ application {
     mainClassName = "net.akaritakai.aoc2020.Main"
 }
 
+jacoco {
+    toolVersion = "0.8.6"
+}
+
 jacocoTestReport {
     reports {
         xml.enabled = true

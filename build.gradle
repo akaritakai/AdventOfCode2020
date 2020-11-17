@@ -16,8 +16,13 @@ java {
     targetCompatibility = JavaVersion.VERSION_15
 }
 
+compileJava {
+    options.compilerArgs += ['--enable-preview']
+}
+
 test {
     useTestNG()
+    jvmArgs '--enable-preview'
     testLogging {
         events TestLogEvent.STARTED, TestLogEvent.PASSED, TestLogEvent.SKIPPED, TestLogEvent.FAILED
     }
@@ -45,11 +50,11 @@ dependencies {
 }
 
 application {
-    mainClassName = "net.akaritakai.aoc2020.Main"
+    mainClassName = 'net.akaritakai.aoc2020.Main'
 }
 
 jacoco {
-    toolVersion = "0.8.6"
+    toolVersion = '0.8.6'
 }
 
 jacocoTestReport {

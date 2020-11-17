@@ -1,5 +1,8 @@
 package net.akaritakai.aoc2020.geom2d;
 
+import static net.akaritakai.aoc2020.geom2d.Turn.LEFT;
+import static net.akaritakai.aoc2020.geom2d.Turn.RIGHT;
+
 public enum Direction {
     NORTH (0, 1),  // UP
     SOUTH (0, -1), // DOWN
@@ -38,20 +41,20 @@ public enum Direction {
     public Turn turn(Direction newDirection) {
         switch (this) {
             case NORTH -> {
-                if (newDirection == WEST) return Turn.LEFT;
-                if (newDirection == EAST) return Turn.RIGHT;
+                if (newDirection == WEST) return LEFT;
+                if (newDirection == EAST) return RIGHT;
             }
             case SOUTH -> {
-                if (newDirection == EAST) return Turn.LEFT;
-                if (newDirection == WEST) return Turn.RIGHT;
+                if (newDirection == EAST) return LEFT;
+                if (newDirection == WEST) return RIGHT;
             }
             case EAST -> {
-                if (newDirection == NORTH) return Turn.LEFT;
-                if (newDirection == SOUTH) return Turn.RIGHT;
+                if (newDirection == NORTH) return LEFT;
+                if (newDirection == SOUTH) return RIGHT;
             }
             case WEST -> {
-                if (newDirection == SOUTH) return Turn.LEFT;
-                if (newDirection == NORTH) return Turn.RIGHT;
+                if (newDirection == SOUTH) return LEFT;
+                if (newDirection == NORTH) return RIGHT;
             }
         }
         throw new UnsupportedOperationException("Direction change is not a 90 degree turn (i.e. 0 degrees or 180 degrees)");

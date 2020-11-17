@@ -14,19 +14,19 @@ public record Point(long x, long y) {
         );
     }
 
-    public double manhattanDistance(Point other) {
+    public long manhattanDistance(Point other) {
         return manhattanDistance(this, other);
     }
 
-    public static double manhattanDistance(Point lhs, Point rhs) {
-        return Math.abs(lhs.x - rhs.x) + Math.abs(lhs.y - rhs.y);
+    public static long manhattanDistance(Point p1, Point p2) {
+        return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
     }
 
     public double distance(Point other) {
         return distance(this, other);
     }
 
-    public static double distance(Point lhs, Point rhs) {
-        return Math.sqrt((lhs.x - rhs.x) * (lhs.x - rhs.x) + (lhs.y - rhs.y) * (lhs.y - rhs.y));
+    public static double distance(Point p1, Point p2) {
+        return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
 }

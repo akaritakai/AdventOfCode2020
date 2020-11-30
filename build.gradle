@@ -42,10 +42,6 @@ dependencies {
     implementation "org.slf4j:slf4j-api:2.0.0-alpha1"
     implementation "com.google.guava:guava:30.0-jre"
     implementation "com.squareup.okhttp3:okhttp:4.10.0-RC1"
-    implementation "com.rainerhahnekamp:sneakythrow:1.2.0"
-    implementation "org.apache.commons:commons-math3:3.6.1"
-    implementation "org.jgrapht:jgrapht-core:1.5.0"
-    implementation "org.jline:jline:3.17.1"
 
     runtimeOnly "org.apache.logging.log4j:log4j-slf4j18-impl:2.14.0"
 

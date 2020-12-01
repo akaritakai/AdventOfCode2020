@@ -1,11 +1,7 @@
 package net.akaritakai.aoc2020;
 
-import com.google.common.collect.Sets;
-
-import java.util.Collection;
+import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Puzzle01 extends AbstractPuzzle {
     public Puzzle01(String puzzleInput) {
@@ -19,43 +15,50 @@ public class Puzzle01 extends AbstractPuzzle {
 
     @Override
     public String solvePart1() {
-        return specialEntriesProduct(2);
+        // This problem is effectively known as "2SUM"
+        // The naive algorithm requires O(n^2) but we can do it in O(n):
+        // The typical O(n) method is to stash all the numbers in a frequency map and then iterate over the key set (i)
+        // and test if 2020-i is also present in the key set.
+        // The frequency part is needed so that we can handle duplicates.
+        var numbers = getPuzzleInput().lines().map(Long::parseLong)
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        for (var n1 : numbers.keySet()) {
+            var n2 = 2020 - n1;
+            if (numbers.containsKey(n2)) {
+                if (n1 != n2) {
+                    return String.valueOf(n1 * n2);
+                } else if (numbers.get(n2) >= 2) {
+                    return String.valueOf(n1 * n2);
+                }
+            }
+        }
+        throw new IllegalStateException("Unable to find the solution");
     }
 
     @Override
     public String solvePart2() {
-        return specialEntriesProduct(3);
-    }
-
-    /**
-     * Finds a specified number of entries in the puzzle input that sum to 2020 and returns their product as a string.
-     */
-    private String specialEntriesProduct(int numEntries) {
-        var combo = combinations(numEntries).filter(Puzzle01::hasSpecialSum).findAny().orElseThrow();
-        return String.valueOf(product(combo));
-    }
-
-    /**
-     * Returns combinations of elements (including repeats) in the puzzle input of a given size.
-     */
-    private Stream<Collection<Long>> combinations(int numEntries) {
-        var numbers = getPuzzleInput().lines().map(Long::parseLong).collect(Collectors.toList());
-        var indexes = IntStream.range(0, numbers.size()).boxed().collect(Collectors.toSet());
-        @SuppressWarnings("UnstableApiUsage") var indexCombos = Sets.combinations(indexes, numEntries);
-        return indexCombos.stream().map(combo -> combo.stream().map(numbers::get).collect(Collectors.toList()));
-    }
-
-    /**
-     * Returns true if the numbers in the collection sum to 2020.
-     */
-    private static boolean hasSpecialSum(Collection<Long> collection) {
-        return collection.stream().mapToLong(i -> i).sum() == 2020;
-    }
-
-    /**
-     * Returns the product of the numbers in the collection.
-     */
-    private static long product(Collection<Long> collection) {
-        return collection.stream().reduce((a, b) -> a * b).orElseThrow();
+        // This problem is effectively known as "3SUM"
+        // The naive algorithm requires O(n^3) but we can do it in O(n^2):
+        // The typical O(n^2) method is to stash all the numbers in a hash set and then iterate over pairs i, j and test
+        // if 2020-i-j is in the hash set. However, that won't work for us as we might have duplicate entries.
+        // Instead, we will eat an O(n lg n) sort, and then do O(n^2) comparisons.
+        var numbers = getPuzzleInput().lines().map(Long::parseLong).sorted().collect(Collectors.toList());
+        for (var i = 0; i < numbers.size() - 2; i++) {
+            var n1 = numbers.get(i);
+            var j = i + 1;
+            var k = numbers.size() - 1;
+            while (j < k) {
+                var n2 = numbers.get(j);
+                var n3 = numbers.get(k);
+                if (n1 + n2 + n3 == 2020) {
+                    return String.valueOf(n1 * n2 * n3);
+                } else if (n1 + n2 + n3 > 2020) {
+                    k--;
+                } else {
+                    j++;
+                }
+            }
+        }
+        throw new IllegalStateException("Unable to find the solution");
     }
 }

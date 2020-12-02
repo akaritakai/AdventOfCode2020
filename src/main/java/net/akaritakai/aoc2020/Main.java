@@ -5,7 +5,8 @@ import java.util.List;
 public class Main {
     private static final PuzzleInputFetcher PUZZLE_INPUT_FETCHER = new PuzzleInputFetcher();
     private static final List<AbstractPuzzle> PUZZLES = List.of(
-            new Puzzle01(PUZZLE_INPUT_FETCHER.getPuzzleInput(1))
+            new Puzzle01(PUZZLE_INPUT_FETCHER.getPuzzleInput(1)),
+            new Puzzle02(PUZZLE_INPUT_FETCHER.getPuzzleInput(2))
     );
 
     public static void main(String[] args) {

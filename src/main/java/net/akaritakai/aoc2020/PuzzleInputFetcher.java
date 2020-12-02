@@ -63,7 +63,6 @@ public class PuzzleInputFetcher {
         });
     }
 
-
     @VisibleForTesting
     String fetchLocalPuzzleInput(int day) throws IOException {
         LOG.info("Fetching puzzle input from disk for day {}", day);

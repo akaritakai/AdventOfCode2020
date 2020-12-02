@@ -1,6 +1,5 @@
 package net.akaritakai.aoc2020;
 
-import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -26,11 +25,11 @@ public class Puzzle02 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
-        BiFunction<String, Integer, Character> letterAtPosition = (password, i) ->
-                i - 1 >= 0 && i - 1 < password.length() ? password.charAt(i - 1) : null;
-        Predicate<PasswordAndPolicy> matchesPolicy = data ->
-                letterAtPosition.apply(data.password, data.lower) == data.letter
-                        ^ letterAtPosition.apply(data.password, data.upper) == data.letter;
+        Predicate<PasswordAndPolicy> matchesPolicy = data -> {
+            boolean lower = data.lower - 1 < data.password.length() && data.password.charAt(data.lower - 1) == data.letter;
+            boolean upper = data.upper - 1 < data.password.length() && data.password.charAt(data.upper - 1) == data.letter;
+            return lower ^ upper;
+        };
         var matching = getPuzzleInput().lines().map(Puzzle02::parse).filter(matchesPolicy).count();
         return String.valueOf(matching);
     }

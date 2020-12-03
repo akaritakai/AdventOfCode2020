@@ -13,18 +13,18 @@ public class Puzzle03 extends AbstractPuzzle {
     @Override
     public String solvePart1() {
         var forest = new Forest(getPuzzleInput());
-        return String.valueOf(forest.countOnSlope(3, 1));
+        return String.valueOf(forest.treesOnSlope(3, 1));
     }
 
     @Override
     public String solvePart2() {
         var count = 1L;
         var forest = new Forest(getPuzzleInput());
-        count *= forest.countOnSlope(1, 1);
-        count *= forest.countOnSlope(3, 1);
-        count *= forest.countOnSlope(5, 1);
-        count *= forest.countOnSlope(7, 1);
-        count *= forest.countOnSlope(1, 2);
+        count *= forest.treesOnSlope(1, 1);
+        count *= forest.treesOnSlope(3, 1);
+        count *= forest.treesOnSlope(5, 1);
+        count *= forest.treesOnSlope(7, 1);
+        count *= forest.treesOnSlope(1, 2);
         return String.valueOf(count);
     }
 
@@ -43,7 +43,7 @@ public class Puzzle03 extends AbstractPuzzle {
             }
         }
 
-        public int countOnSlope(int dx, int dy) {
+        public int treesOnSlope(int dx, int dy) {
             var count = 0;
             var x = 0;
             var y = 0;

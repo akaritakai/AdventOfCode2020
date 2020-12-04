@@ -64,7 +64,7 @@ public class Puzzle04 extends AbstractPuzzle {
                 case "iyr" -> value.matches("^\\d{4}$") && inRange(value, 2010, 2020);
                 case "eyr" -> value.matches("^\\d{4}$") && inRange(value, 2020, 2030);
                 case "hgt" -> value.matches("^\\d+cm$") && inRange(value.split("cm")[0], 150, 193)
-                        || value.matches("^\\d+in") && inRange(value.split("in")[0], 59, 76);
+                        || value.matches("^\\d+in$") && inRange(value.split("in")[0], 59, 76);
                 case "hcl" -> value.matches("^#[0-9a-f]{6}$");
                 case "ecl" -> value.matches("^amb|blu|brn|gry|grn|hzl|oth$");
                 case "pid" -> value.matches("^\\d{9}$");

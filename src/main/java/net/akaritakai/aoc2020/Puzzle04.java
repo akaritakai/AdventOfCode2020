@@ -66,7 +66,7 @@ public class Puzzle04 extends AbstractPuzzle {
                 case "hgt" -> value.matches("^\\d+cm$") && inRange(value.split("cm")[0], 150, 193)
                         || value.matches("^\\d+in") && inRange(value.split("in")[0], 59, 76);
                 case "hcl" -> value.matches("^#[0-9a-f]{6}$");
-                case "ecl" -> Set.of("amb", "blu", "brn", "gry", "grn", "hzl", "oth").contains(value);
+                case "ecl" -> value.matches("^amb|blu|brn|gry|grn|hzl|oth$");
                 case "pid" -> value.matches("^\\d{9}$");
                 case "cid" -> true;
                 default -> false;

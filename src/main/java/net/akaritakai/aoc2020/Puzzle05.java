@@ -38,18 +38,13 @@ public class Puzzle05 extends AbstractPuzzle {
     }
 
     private static int seatId(String instructions) {
-        var minRow = 0;
-        var maxRow = 127;
-        var minCol = 0;
-        var maxCol = 7;
+        var seat_id = 0;
         for (var c : instructions.toCharArray()) {
-            switch (c) {
-                case 'F' -> maxRow -= (maxRow - minRow) / 2 + 1;
-                case 'B' -> minRow += (maxRow - minRow) / 2 + 1;
-                case 'L' -> maxCol -= (maxCol - minCol) / 2 + 1;
-                case 'R' -> minCol += (maxCol - minCol) / 2 + 1;
+            seat_id <<= 1;
+            if (c == 'B' || c == 'R') {
+                seat_id |= 1;
             }
         }
-        return minRow * 8 + minCol;
+        return seat_id;
     }
 }

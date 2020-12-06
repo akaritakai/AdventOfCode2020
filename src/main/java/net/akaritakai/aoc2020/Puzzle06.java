@@ -18,8 +18,8 @@ public class Puzzle06 extends AbstractPuzzle {
 
     @Override
     public String solvePart1() {
-        var count = Arrays.stream(getPuzzleInput().split("\n\n")).mapToInt(group ->
-                group.lines()
+        var count = Arrays.stream(getPuzzleInput().split("\n\n"))
+                .mapToInt(group -> group.lines()
                         .map(person -> person.chars().boxed().collect(Collectors.toSet()))
                         .reduce(Sets::union)
                         .orElse(Set.of())
@@ -30,8 +30,8 @@ public class Puzzle06 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
-        var count = Arrays.stream(getPuzzleInput().split("\n\n")).mapToInt(group ->
-                group.lines()
+        var count = Arrays.stream(getPuzzleInput().split("\n\n"))
+                .mapToInt(group -> group.lines()
                         .map(person -> person.chars().boxed().collect(Collectors.toSet()))
                         .reduce(Sets::intersection)
                         .orElse(Set.of())

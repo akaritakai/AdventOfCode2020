@@ -9,7 +9,8 @@ public class Main {
             new Puzzle02(PUZZLE_INPUT_FETCHER.getPuzzleInput(2)),
             new Puzzle03(PUZZLE_INPUT_FETCHER.getPuzzleInput(3)),
             new Puzzle04(PUZZLE_INPUT_FETCHER.getPuzzleInput(4)),
-            new Puzzle05(PUZZLE_INPUT_FETCHER.getPuzzleInput(5))
+            new Puzzle05(PUZZLE_INPUT_FETCHER.getPuzzleInput(5)),
+            new Puzzle06(PUZZLE_INPUT_FETCHER.getPuzzleInput(6))
     );
 
     public static void main(String[] args) {

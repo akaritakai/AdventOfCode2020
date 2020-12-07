@@ -19,9 +19,7 @@ public class Puzzle05 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
-        var seatIds = getPuzzleInput().lines()
-                .mapToInt(Puzzle05::seatId)
-                .summaryStatistics();
+        var seatIds = getPuzzleInput().lines().mapToInt(Puzzle05::seatId).summaryStatistics();
         long min = seatIds.getMin();
         long max = seatIds.getMax();
         return String.valueOf(max * (max + 1) / 2 - (min - 1) * min / 2 - seatIds.getSum());

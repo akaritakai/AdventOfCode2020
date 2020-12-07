@@ -14,11 +14,7 @@ public class Puzzle05 extends AbstractPuzzle {
 
     @Override
     public String solvePart1() {
-        var seatId = getPuzzleInput().lines()
-                .mapToInt(Puzzle05::seatId)
-                .max()
-                .orElseThrow();
-        return String.valueOf(seatId);
+        return String.valueOf(getPuzzleInput().lines().mapToInt(Puzzle05::seatId).max().orElseThrow());
     }
 
     @Override

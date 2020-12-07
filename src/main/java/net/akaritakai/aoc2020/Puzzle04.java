@@ -28,8 +28,7 @@ public class Puzzle04 extends AbstractPuzzle {
     public String solvePart2() {
         var count = Arrays.stream(getPuzzleInput().split("\n\n"))
                 .map(Passport::parse)
-                .filter(Passport::hasAllRequiredFields)
-                .filter(Passport::allValuesAreValid)
+                .filter(passport -> passport.hasAllRequiredFields() && passport.allValuesAreValid())
                 .count();
         return String.valueOf(count);
     }

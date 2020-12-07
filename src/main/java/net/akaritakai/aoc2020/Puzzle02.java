@@ -18,8 +18,7 @@ public class Puzzle02 extends AbstractPuzzle {
             var count = data.password.chars().filter(i -> i == data.letter).count();
             return count >= data.lower && count <= data.upper;
         };
-        var matching = getPuzzleInput().lines().map(PasswordAndPolicy::parse).filter(matchesPolicy).count();
-        return String.valueOf(matching);
+        return String.valueOf(getPuzzleInput().lines().map(PasswordAndPolicy::parse).filter(matchesPolicy).count());
     }
 
     @Override
@@ -29,8 +28,7 @@ public class Puzzle02 extends AbstractPuzzle {
             boolean upper = data.upper - 1 < data.password.length() && data.password.charAt(data.upper - 1) == data.letter;
             return lower ^ upper;
         };
-        var matching = getPuzzleInput().lines().map(PasswordAndPolicy::parse).filter(matchesPolicy).count();
-        return String.valueOf(matching);
+        return String.valueOf(getPuzzleInput().lines().map(PasswordAndPolicy::parse).filter(matchesPolicy).count());
     }
 
     private record PasswordAndPolicy(int lower, int upper, char letter, String password) {

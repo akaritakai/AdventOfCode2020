@@ -1,0 +1,59 @@
+package net.akaritakai.aoc2020;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+public class Puzzle07 extends AbstractPuzzle {
+    public Puzzle07(String puzzleInput) {
+        super(puzzleInput);
+    }
+
+    @Override
+    public int getDay() {
+        return 7;
+    }
+
+    @Override
+    public String solvePart1() {
+        var rules = rules();
+        var count = rules.keySet().stream().filter(color -> containsGold(rules, color)).count() - 1;
+        return String.valueOf(count);
+    }
+
+    @Override
+    public String solvePart2() {
+        var count = nestedCount(rules(), "shiny gold") - 1;
+        return String.valueOf(count);
+    }
+
+    private static boolean containsGold(Map<String, Map<String, Integer>> rules, String bagColor) {
+        return bagColor.equals("shiny gold") || rules.getOrDefault(bagColor, Map.of()).keySet().stream()
+                .anyMatch(b -> containsGold(rules, b));
+    }
+
+    private static int nestedCount(Map<String, Map<String, Integer>> rules, String bagColor) {
+        return 1 + rules.getOrDefault(bagColor, Map.of()).entrySet().stream()
+                .mapToInt(e -> e.getValue() * nestedCount(rules, e.getKey()))
+                .sum();
+    }
+
+    private Map<String, Map<String, Integer>> rules() {
+        var map = new HashMap<String, Map<String, Integer>>();
+        for (var line : getPuzzleInput().split("\n")) {
+            var matcher = Pattern.compile("^(.+) bags contain (.+)\\.$").matcher(line);
+            if (matcher.find()) {
+                var lhs = matcher.group(1);
+                for (var element : matcher.group(2).split(", ")) {
+                    matcher = Pattern.compile("^(\\d+) (.+) bags?$").matcher(element);
+                    if (matcher.find()) {
+                        var quantity = Integer.parseInt(matcher.group(1));
+                        var color = matcher.group(2);
+                        map.computeIfAbsent(lhs, s -> new HashMap<>()).put(color, quantity);
+                    }
+                }
+            }
+        }
+        return map;
+    }
+}

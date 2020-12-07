@@ -45,28 +45,12 @@ public class Puzzle03 extends AbstractPuzzle {
 
         public int treesOnSlope(int dx, int dy) {
             var count = 0;
-            var x = 0;
-            var y = 0;
-            while (y < height()) {
-                if (hasTree(x, y)) {
+            for (int x = 0, y = 0; y < knownTrees[0].length; x += dx, y += dy) {
+                if (knownTrees[x % knownTrees.length][y]) {
                     count++;
                 }
-                x += dx;
-                y += dy;
             }
             return count;
-        }
-
-        private boolean hasTree(int x, int y) {
-            return knownTrees[x % width()][y];
-        }
-
-        private int height() {
-            return knownTrees[0].length;
-        }
-
-        private int width() {
-            return knownTrees.length;
         }
     }
 }

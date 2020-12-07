@@ -36,12 +36,10 @@ public class Puzzle04 extends AbstractPuzzle {
 
     @VisibleForTesting
     record Passport(Map<String, String> entries) {
-        private static final Pattern ENTRY_PATTERN = Pattern.compile("^(byr|iyr|eyr|hgt|hcl|ecl|pid|cid):(\\S+)$");
-
         private static Passport parse(String passportString) {
             var data = new HashMap<String, String>();
             for (var token : passportString.split("[ \n]+")) {
-                var matcher = ENTRY_PATTERN.matcher(token);
+                var matcher = Pattern.compile("^(byr|iyr|eyr|hgt|hcl|ecl|pid|cid):(\\S+)$").matcher(token);
                 if (matcher.find()) {
                     data.put(matcher.group(1), matcher.group(2));
                 }

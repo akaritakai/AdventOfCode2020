@@ -17,7 +17,7 @@ public class Puzzle07 extends AbstractPuzzle {
     @Override
     public String solvePart1() {
         var rules = rules();
-        var count = rules.keySet().stream().filter(color -> containsGold(rules, color)).count() - 1;
+        var count = rules.keySet().stream().filter(color -> containsGold(rules, color)).count();
         return String.valueOf(count);
     }
 
@@ -28,8 +28,8 @@ public class Puzzle07 extends AbstractPuzzle {
     }
 
     private static boolean containsGold(Map<String, Map<String, Integer>> rules, String bagColor) {
-        return bagColor.equals("shiny gold") || rules.getOrDefault(bagColor, Map.of()).keySet().stream()
-                .anyMatch(b -> containsGold(rules, b));
+        var contents = rules.getOrDefault(bagColor, Map.of()).keySet();
+        return contents.contains("shiny gold") || contents.stream().anyMatch(color -> containsGold(rules, color));
     }
 
     private static int nestedCount(Map<String, Map<String, Integer>> rules, String bagColor) {

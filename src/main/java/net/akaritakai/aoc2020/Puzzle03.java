@@ -28,11 +28,9 @@ public class Puzzle03 extends AbstractPuzzle {
         return String.valueOf(count);
     }
 
-    private static class Forest {
-        private final String[] lines;
-
+    private record Forest(String[] lines) {
         public Forest(String input) {
-            lines = input.split("\n");
+            this(input.split("\n"));
         }
 
         public int treesOnSlope(int dx, int dy) {

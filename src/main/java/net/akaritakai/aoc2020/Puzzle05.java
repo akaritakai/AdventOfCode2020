@@ -20,27 +20,16 @@ public class Puzzle05 extends AbstractPuzzle {
     @Override
     public String solvePart2() {
         var seatIds = getPuzzleInput().lines()
-                .map(Puzzle05::seatId)
-                .sorted()
-                .collect(Collectors.toList());
-        for (var i = 0; i < seatIds.size() - 1; i++) {
-            var seatId1 = seatIds.get(i);
-            var seatId2 = seatIds.get(i + 1);
-            if (seatId1 + 1 != seatId2) {
-                return String.valueOf(seatId1 + 1);
-            }
-        }
-        throw new IllegalStateException("Unable to find the solution");
+                .mapToInt(Puzzle05::seatId)
+                .summaryStatistics();
+        long min = seatIds.getMin();
+        long max = seatIds.getMax();
+        return String.valueOf(max * (max + 1) / 2 - (min - 1) * min / 2 - seatIds.getSum());
     }
 
     private static int seatId(String instructions) {
-        var seat_id = 0;
-        for (var c : instructions.toCharArray()) {
-            seat_id <<= 1;
-            if (c == 'B' || c == 'R') {
-                seat_id |= 1;
-            }
-        }
-        return seat_id;
+        return Integer.parseInt(instructions.chars()
+                .mapToObj(c -> c == 'B' || c == 'R' ? "1" : "0")
+                .collect(Collectors.joining()), 2);
     }
 }

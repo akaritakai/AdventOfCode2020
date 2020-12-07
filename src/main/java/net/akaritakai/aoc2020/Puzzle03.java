@@ -29,24 +29,16 @@ public class Puzzle03 extends AbstractPuzzle {
     }
 
     private static class Forest {
-        private final boolean[][] knownTrees;
+        private final String[] lines;
 
         public Forest(String input) {
-            var lines = input.split("\n");
-            var height = lines.length;
-            var width = lines[0].length();
-            knownTrees = new boolean[width][height];
-            for (var y = 0; y < height; y++) {
-                for (var x = 0; x < width; x++) {
-                    knownTrees[x][y] = lines[y].charAt(x) == '#';
-                }
-            }
+            lines = input.split("\n");
         }
 
         public int treesOnSlope(int dx, int dy) {
             var count = 0;
-            for (int x = 0, y = 0; y < knownTrees[0].length; x += dx, y += dy) {
-                if (knownTrees[x % knownTrees.length][y]) {
+            for (int x = 0, y = 0; y < lines.length; x += dx, y += dy) {
+                if (lines[y].charAt(x % lines[y].length()) == '#') {
                     count++;
                 }
             }

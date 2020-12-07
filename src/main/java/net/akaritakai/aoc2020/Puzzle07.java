@@ -43,13 +43,11 @@ public class Puzzle07 extends AbstractPuzzle {
         for (var line : getPuzzleInput().split("\n")) {
             var matcher = Pattern.compile("^(.+) bags contain (.+)\\.$").matcher(line);
             if (matcher.find()) {
-                var lhs = matcher.group(1);
+                var innerMap = map.computeIfAbsent(matcher.group(1), s -> new HashMap<>());
                 for (var element : matcher.group(2).split(", ")) {
                     matcher = Pattern.compile("^(\\d+) (.+) bags?$").matcher(element);
                     if (matcher.find()) {
-                        var quantity = Integer.parseInt(matcher.group(1));
-                        var color = matcher.group(2);
-                        map.computeIfAbsent(lhs, s -> new HashMap<>()).put(color, quantity);
+                        innerMap.put(matcher.group(2), Integer.parseInt(matcher.group(1)));
                     }
                 }
             }

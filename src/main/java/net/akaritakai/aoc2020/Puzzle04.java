@@ -5,6 +5,13 @@ import com.google.common.annotations.VisibleForTesting;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * In Day 4, we are again given a set of predicates for a list of inputs and told to find how many inputs match all the
+ * predicates.
+ *
+ * The problem is identical to Day 2 with the 'curveball' being how much more involved parsing the inputs and checking
+ * the predicates are.
+ */
 public class Puzzle04 extends AbstractPuzzle {
     public Puzzle04(String puzzleInput) {
         super(puzzleInput);

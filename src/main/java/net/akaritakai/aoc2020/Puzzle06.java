@@ -6,6 +6,13 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * In Day 6, we are given a set operation problem:
+ * - Part 1 gives us a list of sets and asks us to find the union of all the sets.
+ * - Part 2 gives us a list of sets and asks us to find the intersection of all the sets.
+ *
+ * Both parts can be solved in O(n) time.
+ */
 public class Puzzle06 extends AbstractPuzzle {
     public Puzzle06(String puzzleInput) {
         super(puzzleInput);

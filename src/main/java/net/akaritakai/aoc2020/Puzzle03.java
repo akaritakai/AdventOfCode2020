@@ -1,5 +1,16 @@
 package net.akaritakai.aoc2020;
 
+/**
+ * In Day 3, we are given the definition of a forest: a set of non-negative integer tuples (x, y) whose y value (height)
+ * is bounded and whose x value (width) is unbounded.
+ *
+ * We are then given a boolean function f(x, y) for our 'instance' of the forest which tells us if a tree is present at
+ * that location. Explicitly we are given finite numbers 0..n of x for every y and told that f(n+1, y) == f(0, y),
+ * f(n+2, y) == f(1, y), etc.
+ *
+ * Indeed, this problem is our first this year that takes advantage of modular arithmetic:
+ * For all i, f(i, y) = f(i modulo n, y).
+ */
 public class Puzzle03 extends AbstractPuzzle {
     public Puzzle03(String puzzleInput) {
         super(puzzleInput);

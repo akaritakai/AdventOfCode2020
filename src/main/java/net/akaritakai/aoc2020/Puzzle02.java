@@ -2,6 +2,11 @@ package net.akaritakai.aoc2020;
 
 import java.util.function.Predicate;
 
+/**
+ * In Day 2, we're given a list of predicate/value tuples and are asked how many values match their tuples.
+ *
+ * Since every predicate/value tuple must be checked, there are no solutions faster than O(n) for either part.
+ */
 public class Puzzle02 extends AbstractPuzzle {
     public Puzzle02(String puzzleInput) {
         super(puzzleInput);

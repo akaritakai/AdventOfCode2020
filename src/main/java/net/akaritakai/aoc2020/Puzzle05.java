@@ -6,15 +6,15 @@ import java.util.stream.Collectors;
 
 /**
  * In Day 5, we are given what appears to be at first blush a binary search problem. We are given a fixed range and told
- * to subdivide it repeatedly by taking either the left or right half of the range until we are left with a single found
+ * to subdivide it repeatedly by taking either the left or right half of the range until we are left with a single
  * value.
  *
  * On further examination however, we can see that the input itself builds a number: taking the upper half yields a 1,
  * and taking the lower half yields a '0'. Converting the instructions in this way, the binary number we generate is
  * exactly the seat id we are asked for!
  *
- * In part 1, we only wish to find the maximum value of the list of seat ids we are given, which cannot be done than
- * O(n) as we must check every element in the list.
+ * In part 1, we only wish to find the maximum value of the list of seat ids we are given, which cannot be done faster
+ * than O(n) as we must check every element in the list.
  *
  * In part 2, we are asked to find the missing number in a list that contains all values from [min, max] except for the
  * number we need to find. The naive way to do this is to sort the list and iterate over it in O(n lg n) time, but it

@@ -5,7 +5,7 @@ package net.akaritakai.aoc2020;
  * is bounded and whose x value (width) is unbounded.
  *
  * We are then given a boolean function f(x, y) for our 'instance' of the forest which tells us if a tree is present at
- * that location. Explicitly we are given finite numbers 0..n of x for every y and told that f(n+1, y) == f(0, y),
+ * that location. Explicitly, we are given finite numbers 0..n of x for every y and told that f(n+1, y) == f(0, y),
  * f(n+2, y) == f(1, y), etc.
  *
  * Indeed, this problem is our first this year that takes advantage of modular arithmetic:

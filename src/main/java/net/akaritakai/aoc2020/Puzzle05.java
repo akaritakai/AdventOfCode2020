@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * number we need to find. The naive way to do this is to sort the list and iterate over it in O(n lg n) time, but it
  * can be done in O(n) time (and O(1) auxiliary space) instead:
  * - Read the list of seat ids and record the min value, max value, and total sum (requires an O(n) pass)
- * - Calculate the triangular numbers T(min - 1) and T(max) in O(1) using T(x) = binomial(x+1, 2)
+ * - Calculate the triangular numbers T(min - 1) and T(max) in O(1) using T(x) = binomial(x+1, 2) = x*(x+1)/2
  * - We know that if no discontinuities exist that the total sum would be T(max) - T(min - 1).
  *   Thus, the difference between T(max) - T(min - 1) and our actual sum is the missing value.
  */

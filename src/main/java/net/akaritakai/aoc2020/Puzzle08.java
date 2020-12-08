@@ -5,6 +5,15 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Day 8 asks us to simulate a simple machine and determine at what state it repeats an instruction or halts.
+ *
+ * Because the machine cannot repeat any earlier instruction, it cannot take more than O(n) to either repeat an
+ * instruction or halt.
+ *
+ * A much harder version of this problem is the halting problem, which asks if a given program/input tuple will halt.
+ * The halting problem is famously undecidable over the domain of all program/input tuples.
+ */
 public class Puzzle08 extends AbstractPuzzle {
     public Puzzle08(String puzzleInput) {
         super(puzzleInput);

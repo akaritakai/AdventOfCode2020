@@ -33,9 +33,9 @@ public class Puzzle08 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
-        var matcher = Pattern.compile("nop|jmp").matcher(getPuzzleInput());
+        var matcher = Pattern.compile("(nop|jmp)").matcher(getPuzzleInput());
         while (matcher.find()) {
-            var op = getPuzzleInput().substring(matcher.start(), matcher.end()).equals("nop") ? "jmp" : "nop";
+            var op = matcher.group(1).equals("nop") ? "jmp" : "nop";
             var input = getPuzzleInput().substring(0, matcher.start()) + op + getPuzzleInput().substring(matcher.end());
             var machine = new Machine(input);
             machine.run();

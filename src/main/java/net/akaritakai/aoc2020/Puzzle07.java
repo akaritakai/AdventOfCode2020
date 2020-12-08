@@ -16,7 +16,8 @@ import java.util.regex.Pattern;
  * the end, we are left to subtract 1 to exclude the gold bag itself from the resulting count.
  *
  * The inputs themselves are both small and do not appear to contain cycles, and so no care (cycle-detection) or dynamic
- * programming is required to solve this, but it would be trivial to extend the solution to handle these requirements.
+ * programming is required to solve this in a timely manner, but it would be trivial to extend the solution to handle
+ * these requirements.
  */
 public class Puzzle07 extends AbstractPuzzle {
     public Puzzle07(String puzzleInput) {

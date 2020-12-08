@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * instruction or halt.
  *
  * In part 2, we are asked find the line in the program that can be acceptably mutated to get the program to halt. This
- * search would naively take O(n^2), but it can be done in O(n) because we never to test any instruction previously
+ * search would naively take O(n^2), but it can be done in O(n) because we never test any instruction previously
  * tested: if the mutation redirects to a previously seen instruction and the remaining code path does not involve the
  * mutated instruction, then we have already tested it; conversely, if the mutation redirects to a previously seen
  * instruction and the remaining code path does involve the mutated instruction, then we have looped and won't halt.

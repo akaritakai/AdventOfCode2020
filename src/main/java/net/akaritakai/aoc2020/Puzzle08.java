@@ -39,7 +39,7 @@ public class Puzzle08 extends AbstractPuzzle {
             var input = getPuzzleInput().substring(0, matcher.start()) + op + getPuzzleInput().substring(matcher.end());
             var machine = new Machine(input);
             machine.run();
-            if (machine.halted()) {
+            if (machine.ip >= machine.instructions.size()) {
                 return String.valueOf(machine.acc);
             }
         }
@@ -69,10 +69,6 @@ public class Puzzle08 extends AbstractPuzzle {
                 }
                 ip++;
             }
-        }
-
-        public boolean halted() {
-            return ip >= instructions.size();
         }
     }
 

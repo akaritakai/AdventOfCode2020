@@ -74,10 +74,10 @@ public class Puzzle08 extends AbstractPuzzle {
             }
             return findReturnValue(execute(registers.ip, registers.acc), modifications).or(() -> {
                 var instruction = instructions.get(registers.ip);
-                if (instruction.op.equals("nop") && modifications < 1) {
+                if (modifications < 1 && instruction.op.equals("nop")) {
                     instruction = new Instruction("jmp", instruction.value);
                     return findReturnValue(execute(registers.ip, registers.acc, instruction), modifications + 1);
-                } else if (instruction.op.equals("jmp") && modifications < 1) {
+                } else if (modifications < 1 && instruction.op.equals("jmp")) {
                     instruction = new Instruction("nop", instruction.value);
                     return findReturnValue(execute(registers.ip, registers.acc, instruction), modifications + 1);
                 } else {

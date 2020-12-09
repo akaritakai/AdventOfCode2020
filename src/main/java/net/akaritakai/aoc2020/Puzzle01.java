@@ -1,7 +1,9 @@
 package net.akaritakai.aoc2020;
 
-import java.util.HashSet;
-import java.util.Scanner;
+import net.akaritakai.aoc2020.collections.SubsetSum;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * In Day 1, we're tasked with finding a subset of size k from a set of numbers of size n that sum to a given value,
@@ -28,24 +30,12 @@ public class Puzzle01 extends AbstractPuzzle {
 
     @Override
     public String solvePart1() {
-        // 2-SUM:
-        // The naive algorithm performs in O(n^2) but we can do it in O(n) while handling duplicates:
-        // - Initialize an empty set S
-        // - For every number n:
-        //   - If 2020-n is present in S, our subset is {n, 2020-n}
-        //   - Add n to S
-        var seen = new HashSet<Integer>();
-        try (var scanner = new Scanner(getPuzzleInput())) {
-            while (scanner.hasNextInt()) {
-                var n1 = scanner.nextInt();
-                var n2 = 2020 - n1;
-                if (seen.contains(n2)) {
-                    return String.valueOf(n1 * n2);
-                }
-                seen.add(n1);
-            }
-        }
-        throw new IllegalStateException("Unable to find the solution");
+        var numbers = getPuzzleInput().lines().map(Long::parseLong).collect(Collectors.toList());
+        var sum = SubsetSum.twoSum(numbers, 2020).stream()
+                .flatMap(Collection::stream)
+                .reduce((a, b) -> a * b)
+                .orElseThrow(() -> new IllegalStateException("Unable to find the solution"));
+        return String.valueOf(sum);
     }
 
     @Override

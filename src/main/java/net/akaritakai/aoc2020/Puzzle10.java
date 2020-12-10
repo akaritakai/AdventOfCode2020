@@ -56,11 +56,11 @@ public class Puzzle10 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
-        // Get our input as a set of adapters and get that set's max value in O(n)
+        // Get our input as a set of adapters and get the set's max value in O(n)
         var adapters = getPuzzleInput().lines().map(Integer::parseInt).collect(Collectors.toSet());
-        var device = adapters.stream().max(Integer::compare).orElseThrow() + 3;
+        var max = adapters.stream().max(Integer::compare).orElseThrow();
         // Count number of paths recursively using dynamic programming
-        return String.valueOf(countPaths(adapters, new HashMap<>(), 0, device));
+        return String.valueOf(countPaths(adapters, new HashMap<>(), 0, max + 3));
     }
 
     private static long countPaths(Set<Integer> adapters, Map<Integer, Long> memo, int current, int target) {

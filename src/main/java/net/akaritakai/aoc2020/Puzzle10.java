@@ -34,8 +34,8 @@ public class Puzzle10 extends AbstractPuzzle {
 
     @Override
     public String solvePart1() {
-        // Build our sorted list in O(n) by storing all the numbers in a hash set in O(n) time and iterating over all
-        // integers from min to max which is approximately n due to the density.
+        // Build our path in O(n) by storing all the numbers in a hash set in O(n) time and iterating over all
+        // integers from min to max: values tested to be in our set are the next element in the path.
         var set = getPuzzleInput().lines().map(Integer::parseInt).collect(Collectors.toSet());
         var max = set.stream().max(Integer::compare).orElseThrow();
         var ones = 0;

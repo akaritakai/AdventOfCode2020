@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.LongStream;
+import java.util.stream.IntStream;
 
 /**
  * In Day 10, we're given a set of values and told to find paths that connect the values from a source (0) to a sink
@@ -34,11 +34,11 @@ public class Puzzle10 extends AbstractPuzzle {
     public String solvePart1() {
         // Build our sorted list in O(n) by storing all the numbers in a hash set in O(n) time and iterating over all
         // integers from min to max which is approximately n due to the density.
-        var summary = getPuzzleInput().lines().mapToLong(Long::parseLong).summaryStatistics();
-        var set = getPuzzleInput().lines().map(Long::parseLong).collect(Collectors.toSet());
-        var adapters = new ArrayList<Long>();
-        adapters.add(0L);
-        LongStream.rangeClosed(summary.getMin(), summary.getMax()).filter(set::contains).forEach(adapters::add);
+        var summary = getPuzzleInput().lines().mapToInt(Integer::parseInt).summaryStatistics();
+        var set = getPuzzleInput().lines().map(Integer::parseInt).collect(Collectors.toSet());
+        var adapters = new ArrayList<Integer>();
+        adapters.add(0);
+        IntStream.rangeClosed(summary.getMin(), summary.getMax()).filter(set::contains).forEach(adapters::add);
         adapters.add(summary.getMax() + 3);
 
         var threes = 0;

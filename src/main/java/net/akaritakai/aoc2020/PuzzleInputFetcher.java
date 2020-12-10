@@ -14,6 +14,9 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * Fetches puzzle inputs using an in-memory cache, the local disk, or the Advent of Code site.
+ */
 public class PuzzleInputFetcher {
     private static final Logger LOG = LoggerFactory.getLogger(PuzzleInputFetcher.class);
 
@@ -34,6 +37,14 @@ public class PuzzleInputFetcher {
         _sessionTokenPath = sessionTokenPath;
     }
 
+    /**
+     * Fetches the given day's puzzle input. It will try to fetch first from the in-memory cache, then the local disk,
+     * and finally the Advent of Code site (storing the input to the local disk to avoid further fetches).
+     *
+     * @param day the puzzle's day
+     * @return the puzzle input
+     * @throws RuntimeException if the puzzle cannot be fetched
+     */
     public String getPuzzleInput(int day) {
         return _cache.computeIfAbsent(day, s -> {
             try {

@@ -15,7 +15,7 @@ public class SubsetSum {
         //   - If 2020-n is present in S, our subset is {n, 2020-n}
         //   - Add n to S
         var seen = new HashSet<Long>();
-        for (Long n1 : numbers) {
+        for (var n1 : numbers) {
             var n2 = value - n1;
             if (seen.contains(n2)) {
                 return Optional.of(List.of(n1, n2));

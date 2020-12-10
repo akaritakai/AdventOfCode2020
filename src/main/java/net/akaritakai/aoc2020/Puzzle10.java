@@ -64,20 +64,20 @@ public class Puzzle10 extends AbstractPuzzle {
     }
 
     private static long countPaths(Set<Integer> adapters, Map<Integer, Long> memo, int current, int target) {
-        if (current == target) {
+        if (current + 3 == target) {
             return 1;
         } else if (memo.containsKey(current)) {
             return memo.get(current);
         }
 
         var count = 0L;
-        if (current + 1 == target || adapters.contains(current + 1)) {
+        if (adapters.contains(current + 1)) {
             count += countPaths(adapters, memo, current + 1, target);
         }
-        if (current + 2 == target || adapters.contains(current + 2)) {
+        if (adapters.contains(current + 2)) {
             count += countPaths(adapters, memo, current + 2, target);
         }
-        if (current + 3 == target || adapters.contains(current + 3)) {
+        if (adapters.contains(current + 3)) {
             count += countPaths(adapters, memo, current + 3, target);
         }
         memo.put(current, count);

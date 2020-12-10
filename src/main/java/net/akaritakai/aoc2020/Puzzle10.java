@@ -1,11 +1,9 @@
 package net.akaritakai.aoc2020;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * In Day 10, we're given a set of values and told to find paths that connect the values from a source (0) to a sink
@@ -15,9 +13,10 @@ import java.util.stream.IntStream;
  * The easiest method to find the path is to simply sort the list as our path will always involve monotonically
  * increasing numbers. This is typically done using an O(n lg n) algorithm, however our input has an unusual property:
  * since we are assured that our inputs cannot have numbers more than 3 apart, our inputs contain at least a third of
- * all numbers from source to sink. This density allows us to perform the sort in O(n) by storing the numbers in a set
- * and then constructing a sorted list as follows: iterating from source to sink, add to the sorted list if the element
- * is a member of the set.
+ * all numbers from source to sink. This density allows us to solve the problem in O(n) by doing the following:
+ * - Store the values in a hash set in O(n)
+ * - iterate from source to sink (approximately O(n)):
+ *   - if the value is in the set, it's the next part of our path
  *
  * In part 2, we are tasked with finding the total number of paths. This is typically a recursive problem, however we
  * note that for worst case inputs (all consecutive numbers) that our runtime is O(3^n). Yikes! Luckily, we have a
@@ -37,31 +36,29 @@ public class Puzzle10 extends AbstractPuzzle {
     public String solvePart1() {
         // Build our sorted list in O(n) by storing all the numbers in a hash set in O(n) time and iterating over all
         // integers from min to max which is approximately n due to the density.
-        var summary = getPuzzleInput().lines().mapToInt(Integer::parseInt).summaryStatistics();
         var set = getPuzzleInput().lines().map(Integer::parseInt).collect(Collectors.toSet());
-        var adapters = new ArrayList<Integer>();
-        adapters.add(0);
-        IntStream.rangeClosed(summary.getMin(), summary.getMax()).filter(set::contains).forEach(adapters::add);
-        adapters.add(summary.getMax() + 3);
-
-        var threes = 0;
+        var max = set.stream().max(Integer::compare).orElseThrow();
         var ones = 0;
-        for (var i = 1; i < adapters.size(); i++) {
-            var n = adapters.get(i) - adapters.get(i - 1);
-            if (n == 1) {
-                ones++;
-            } else if (n == 3) {
-                threes++;
+        var threes = 0;
+        var last = 0;
+        for (var i = 1; i <= max; i++) {
+            if (set.contains(i)) {
+                if (i - last == 1) {
+                    ones++;
+                } else if (i - last == 3) {
+                    threes++;
+                }
+                last = i;
             }
         }
-        return String.valueOf(ones * threes);
+        return String.valueOf(ones * (threes + 1));
     }
 
     @Override
     public String solvePart2() {
         // Get our input as a set of adapters and get that set's max value in O(n)
         var adapters = getPuzzleInput().lines().map(Integer::parseInt).collect(Collectors.toSet());
-        var device = adapters.stream().mapToInt(i -> i).max().orElseThrow() + 3;
+        var device = adapters.stream().max(Integer::compare).orElseThrow() + 3;
         // Count number of paths recursively using dynamic programming
         return String.valueOf(countPaths(adapters, new HashMap<>(), 0, device));
     }

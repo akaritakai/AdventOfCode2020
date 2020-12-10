@@ -12,13 +12,16 @@ import java.util.stream.IntStream;
  * (3 more than the largest value given) if they can only be +1, +2, or +3 values apart.
  *
  * In part 1, we're asked to find the path using all the adapters and then perform an O(n) computation over that path.
- * The easiest method to find the path is to sort the list. This is typically done using an O(n lg n) algorithm, however
- * since we are assured that there our puzzle input is a consecutive chain of numbers from our source to sink that
- * cannot have numbers more than 3 apart, we can perform the sort in O(n) by storing the numbers in a set and then
- * iterating from 0 to the largest value, and constructing the sorted list as we go along.
+ * The easiest method to find the path is to simply sort the list as our path will always involve monotonically
+ * increasing numbers. This is typically done using an O(n lg n) algorithm, however our input has an unusual property:
+ * since we are assured that our inputs cannot have numbers more than 3 apart, our inputs contain at least a third of
+ * all numbers from source to sink. This density allows us to perform the sort in O(n) by storing the numbers in a set
+ * and then constructing a sorted list as follows: iterating from source to sink, add to the sorted list if the element
+ * is a member of the set.
  *
- * In part 2, we are tasked with finding the total number of paths. We do this recursively and using dynamic programming
- * in order to have an acceptable runtime.
+ * In part 2, we are tasked with finding the total number of paths. This is typically a recursive problem, however we
+ * note that for worst case inputs (all consecutive numbers) that our runtime is O(3^n). Yikes! Luckily, we have a
+ * solution: when we apply dynamic programming to our recursion, this runtime falls to O(n).
  */
 public class Puzzle10 extends AbstractPuzzle {
     public Puzzle10(String puzzleInput) {

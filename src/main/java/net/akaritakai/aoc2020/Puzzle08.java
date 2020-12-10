@@ -68,8 +68,7 @@ public class Puzzle08 extends AbstractPuzzle {
         private Optional<Integer> findReturnValue(Registers registers, int modifications) {
             if (registers.ip >= instructions.size()) {
                 return Optional.of(registers.acc);
-            }
-            if (!seen.add(registers.ip)) {
+            } else if (!seen.add(registers.ip)) {
                 return Optional.empty();
             }
             return findReturnValue(execute(registers.ip, registers.acc), modifications).or(() -> {

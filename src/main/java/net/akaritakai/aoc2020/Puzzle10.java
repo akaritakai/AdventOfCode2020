@@ -66,12 +66,10 @@ public class Puzzle10 extends AbstractPuzzle {
     private static long countPaths(Set<Integer> adapters, Map<Integer, Long> memo, int current, int target) {
         if (current == target) {
             return 1;
-        } else if (current > target) {
-            return 0;
-        }
-        if (memo.containsKey(current)) {
+        } else if (memo.containsKey(current)) {
             return memo.get(current);
         }
+
         var count = 0L;
         if (current + 1 == target || adapters.contains(current + 1)) {
             count += countPaths(adapters, memo, current + 1, target);

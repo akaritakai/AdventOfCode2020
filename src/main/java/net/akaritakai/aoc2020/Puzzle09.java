@@ -16,9 +16,11 @@ import java.util.stream.IntStream;
  * O(n^2).
  *
  * In part 2, we take the value we found in part 1 and try to find a contiguous range within our set that sums to that
- * value. If the numbers we had were positive and negative the fastest solution would be O(n^2) and look like this:
+ * value. If our input contained both positive and negative numbers the fastest solution would be O(n^2) and look like
+ * this:
  * - Create a list of partial sums of elements of the list [0, 0+1, 0+1+2, ..., 0+1+2+...+n]
  * - Iterate i,j over the list of sums and find the pair sum[j] - sum[i] that equal our value
+ *
  * However, the input gives us only positive numbers, thus we can perform it in O(n):
  * - start with i=0 and j=1 and a running sum that starts as i+j
  * - if the running sum is less than our value, increment j and add it to our sum

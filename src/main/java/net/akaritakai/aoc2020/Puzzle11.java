@@ -107,36 +107,30 @@ public class Puzzle11 extends AbstractPuzzle {
 
         private long adjacentOccupiedCount(int x, int y) {
             return Arrays.stream(Direction.values())
-                    .map(direction -> getAdjacentSeat(direction, x, y))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .filter(seat -> seat == State.OCCUPIED_SEAT)
+                    .filter(direction -> hasOccupiedAdjacentSeat(direction, x, y))
                     .count();
         }
 
         private long visibleOccupiedCount(int x, int y) {
             return Arrays.stream(Direction.values())
-                    .map(direction -> getVisibleSeat(direction, x, y))
-                    .filter(Optional::isPresent)
-                    .map(Optional::get)
-                    .filter(seat -> seat == State.OCCUPIED_SEAT)
+                    .filter(direction -> hasOccupiedVisibleSeat(direction, x, y))
                     .count();
         }
 
-        Optional<State> getAdjacentSeat(Direction direction, int x, int y) {
+        boolean hasOccupiedAdjacentSeat(Direction direction, int x, int y) {
             x += direction.dx;
             y += direction.dy;
-            return inBounds(x, y) ? Optional.of(seats[x][y]) : Optional.empty();
+            return inBounds(x, y) && seats[x][y] == State.OCCUPIED_SEAT;
         }
 
-        Optional<State> getVisibleSeat(Direction direction, int x, int y) {
+        boolean hasOccupiedVisibleSeat(Direction direction, int x, int y) {
             x += direction.dx;
             y += direction.dy;
             while (inBounds(x, y) && seats[x][y] == State.FLOOR) {
                 x += direction.dx;
                 y += direction.dy;
             }
-            return inBounds(x, y) ? Optional.of(seats[x][y]) : Optional.empty();
+            return inBounds(x, y) && seats[x][y] == State.OCCUPIED_SEAT;
         }
 
         private boolean inBounds(int x, int y) {

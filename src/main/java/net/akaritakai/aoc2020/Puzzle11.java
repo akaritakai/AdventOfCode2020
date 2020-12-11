@@ -1,6 +1,5 @@
 package net.akaritakai.aoc2020;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 /**
@@ -70,9 +69,7 @@ public class Puzzle11 extends AbstractPuzzle {
                         case EMPTY_SEAT -> adjacentOccupiedCount(x, y) == 0 ? State.OCCUPIED_SEAT : State.EMPTY_SEAT;
                         case OCCUPIED_SEAT -> adjacentOccupiedCount(x, y) >= 4 ? State.EMPTY_SEAT : State.OCCUPIED_SEAT;
                     };
-                    if (temp[x][y] != seats[x][y]) {
-                        numChanges++;
-                    }
+                    if (temp[x][y] != seats[x][y]) numChanges++;
                 }
             }
             seats = temp;
@@ -89,9 +86,7 @@ public class Puzzle11 extends AbstractPuzzle {
                         case EMPTY_SEAT -> visibleOccupiedCount(x, y) == 0 ? State.OCCUPIED_SEAT : State.EMPTY_SEAT;
                         case OCCUPIED_SEAT -> visibleOccupiedCount(x, y) >= 5 ? State.EMPTY_SEAT : State.OCCUPIED_SEAT;
                     };
-                    if (temp[x][y] != seats[x][y]) {
-                        numChanges++;
-                    }
+                    if (temp[x][y] != seats[x][y]) numChanges++;
                 }
             }
             seats = temp;
@@ -99,61 +94,55 @@ public class Puzzle11 extends AbstractPuzzle {
         }
 
         private long numOccupiedSeats() {
-            return Arrays.stream(seats)
-                    .flatMap(Arrays::stream)
-                    .filter(seat -> seat == State.OCCUPIED_SEAT)
-                    .count();
+            var count = 0;
+            for (var x = 0; x < width; x++) {
+                for (var y = 0; y < height; y++) {
+                    if (seats[x][y] == State.OCCUPIED_SEAT) count++;
+                }
+            }
+            return count;
         }
 
         private long adjacentOccupiedCount(int x, int y) {
-            return Arrays.stream(Direction.values())
-                    .filter(direction -> hasOccupiedAdjacentSeat(direction, x, y))
-                    .count();
+            var count = 0;
+            for (var dx = -1; dx <= 1; dx++) {
+                for (var dy = -1; dy <= 1; dy++) {
+                    if (dx == 0 && dy == 0) continue;
+                    if (hasOccupiedAdjacentSeat(x, y, dx, dy)) count++;
+                }
+            }
+            return count;
         }
 
         private long visibleOccupiedCount(int x, int y) {
-            return Arrays.stream(Direction.values())
-                    .filter(direction -> hasOccupiedVisibleSeat(direction, x, y))
-                    .count();
+            var count = 0;
+            for (var dx = -1; dx <= 1; dx++) {
+                for (var dy = -1; dy <= 1; dy++) {
+                    if (dx == 0 && dy == 0) continue;
+                    if (hasOccupiedVisibleSeat(x, y, dx, dy)) count++;
+                }
+            }
+            return count;
         }
 
-        boolean hasOccupiedAdjacentSeat(Direction direction, int x, int y) {
-            x += direction.dx;
-            y += direction.dy;
+        boolean hasOccupiedAdjacentSeat(int x, int y, int dx, int dy) {
+            x += dx;
+            y += dy;
             return inBounds(x, y) && seats[x][y] == State.OCCUPIED_SEAT;
         }
 
-        boolean hasOccupiedVisibleSeat(Direction direction, int x, int y) {
-            x += direction.dx;
-            y += direction.dy;
+        boolean hasOccupiedVisibleSeat(int x, int y, int dx, int dy) {
+            x += dx;
+            y += dy;
             while (inBounds(x, y) && seats[x][y] == State.FLOOR) {
-                x += direction.dx;
-                y += direction.dy;
+                x += dx;
+                y += dy;
             }
             return inBounds(x, y) && seats[x][y] == State.OCCUPIED_SEAT;
         }
 
         private boolean inBounds(int x, int y) {
             return x >= 0 && x < width && y >= 0 && y < height;
-        }
-    }
-
-    private enum Direction {
-        UP (0, -1),
-        UP_RIGHT (1, -1),
-        RIGHT (1, 0),
-        DOWN_RIGHT (1, 1),
-        DOWN (0, 1),
-        DOWN_LEFT (-1, 1),
-        LEFT (-1, 0),
-        UP_LEFT (-1, -1);
-
-        private final int dx;
-        private final int dy;
-
-        Direction (int dx, int dy) {
-            this.dx = dx;
-            this.dy = dy;
         }
     }
 

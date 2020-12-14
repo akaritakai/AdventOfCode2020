@@ -12,7 +12,7 @@ public class SubsetSum {
         // The naive algorithm performs in O(n^2) but we can do it in O(n) while handling duplicates:
         // - Initialize an empty set S
         // - For every number n:
-        //   - If 2020-n is present in S, our subset is {n, 2020-n}
+        //   - If value-n is present in S, our subset is {n, value-n}
         //   - Add n to S
         var seen = new HashSet<Long>();
         for (var n1 : numbers) {

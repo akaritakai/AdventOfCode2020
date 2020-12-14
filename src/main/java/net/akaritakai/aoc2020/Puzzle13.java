@@ -26,8 +26,9 @@ import java.util.stream.IntStream;
  * (t + 1) % bus2 == 0
  * (t + 2) % bus3 == 0
  * etc.
- * If the buses are not coprime with each other, then the solution will not exist. Thus, we can take advantage of a
- * famous number theory trick called the Chinese remainder theorem which gives a trick to solving:
+ * Luckily for us, our input has the buses all coprime to each other (it is left as an exercise to the reader to see how
+ * restrictive the schedule would be if they were not coprime!). Thus, we can take advantage of a famous number
+ * theory trick called the Chinese remainder theorem which gives a trick to solving:
  * x == a_1 % n_1
  * x == a_2 % n_2
  * x == a_3 % n_3

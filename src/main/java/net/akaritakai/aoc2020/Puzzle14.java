@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * In part 1, we are told how to mutate the value given the mask before setting it in memory.
  * In part 2, we are given a way to turn the mask and location into multiple write instructions that we then carry out.
  *
- * Both parts are made simpler by a strong knowledge of bitwise operations which allows for a simpler/faster program.
+ * Both parts are made simpler by a strong knowledge of bitwise operators.
  */
 public class Puzzle14 extends AbstractPuzzle {
     public Puzzle14(String puzzleInput) {

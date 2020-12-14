@@ -4,6 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+/**
+ * In Day 14, we are given a machine with a mask instruction and a write instruction. The mask instruction sets a mask
+ * to be applied a certain way to the write instruction, and the write instruction writes a given value into a given
+ * memory location in a certain way.
+ *
+ * In part 1, we are told how to mutate the value given the mask before setting it in memory.
+ * In part 2, we are given a way to turn the mask and location into multiple write instructions that we then carry out.
+ *
+ * Both parts are made simpler by a strong knowledge of bitwise operations which allows for a simpler/faster program.
+ */
 public class Puzzle14 extends AbstractPuzzle {
     public Puzzle14(String puzzleInput) {
         super(puzzleInput);

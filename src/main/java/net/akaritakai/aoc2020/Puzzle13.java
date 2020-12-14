@@ -41,10 +41,10 @@ public class Puzzle13 extends AbstractPuzzle {
                 .filter(i -> schedule.get(i) != null)
                 .mapToObj(i -> LongMath.mod(-i, schedule.get(i)))
                 .collect(Collectors.toList());
-        return String.valueOf(crt(n, a));
+        return String.valueOf(chineseRemainderTheorem(n, a));
     }
 
-    private static long crt(List<Long> n, List<Long> a) {
+    private static long chineseRemainderTheorem(List<Long> n, List<Long> a) {
         long product = n.stream().reduce((x, y) -> x * y).orElseThrow();
         long sum = 0;
         for (var i = 0; i < n.size(); i++) {

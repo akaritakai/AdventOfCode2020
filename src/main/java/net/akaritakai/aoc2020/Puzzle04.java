@@ -1,6 +1,7 @@
 package net.akaritakai.aoc2020;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.primitives.Ints;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -77,13 +78,10 @@ public class Puzzle04 extends AbstractPuzzle {
             };
         }
 
+        @SuppressWarnings("UnstableApiUsage")
         private static boolean inRange(String numberString, int startInclusive, int endInclusive) {
-            try {
-                var number = Integer.parseInt(numberString);
-                return number >= startInclusive && number <= endInclusive;
-            } catch (Exception e) {
-                return false;
-            }
+            var number = Ints.tryParse(numberString);
+            return number != null && number >= startInclusive && number <= endInclusive;
         }
     }
 }

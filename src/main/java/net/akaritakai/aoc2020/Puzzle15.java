@@ -40,9 +40,9 @@ public class Puzzle15 extends AbstractPuzzle {
         }
         while (turn <= rounds) {
             var index = history.get(lastNumber);
-            var value = index == null ? 0 : turn - index - 1;
+            var n = index == null ? 0 : turn - index - 1;
             history.put(lastNumber, turn++ - 1);
-            lastNumber = value;
+            lastNumber = n;
         }
         return lastNumber;
     }

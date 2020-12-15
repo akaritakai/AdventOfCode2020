@@ -31,33 +31,23 @@ public class Puzzle15 extends AbstractPuzzle {
     }
 
     private static int playGame(List<Integer> input, int rounds) {
-        var history = new HashMap<Integer, Integer[]>();
+        var history = new HashMap<Integer, Integer>();
         var turn = 1;
         var lastNumber = 0;
         for (var n : input) {
             lastNumber = n;
-            updateIndexes(history.computeIfAbsent(lastNumber, s -> new Integer[2]), turn++);
+            history.put(lastNumber, turn++);
         }
         while (turn <= rounds) {
-            var indexes = history.computeIfAbsent(lastNumber, s -> new Integer[2]);
-            lastNumber = indexes[0] == null || indexes[1] == null ? 0 : indexes[1] - indexes[0];
-            updateIndexes(history.computeIfAbsent(lastNumber, s -> new Integer[2]), turn++);
+            var index = history.get(lastNumber);
+            var value = index == null ? 0 : turn - index - 1;
+            history.put(lastNumber, turn++ - 1);
+            lastNumber = value;
         }
         return lastNumber;
     }
 
     private List<Integer> input() {
         return Arrays.stream(getPuzzleInput().trim().split(",")).map(Integer::parseInt).collect(Collectors.toList());
-    }
-
-    private static void updateIndexes(Integer[] history, int value) {
-        if (history[0] == null) {
-            history[0] = value;
-        } else if (history[1] == null) {
-            history[1] = value;
-        } else {
-            history[0] = history[1];
-            history[1] = value;
-        }
     }
 }

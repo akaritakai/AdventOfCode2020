@@ -26,9 +26,8 @@ import java.util.stream.IntStream;
  * (t + 1) % bus2 == 0
  * (t + 2) % bus3 == 0
  * etc.
- * Luckily for us, our input has the buses all coprime to each other (it is left as an exercise to the reader to see how
- * restrictive the schedule would be if they were not coprime!). Thus, we can take advantage of a famous number theory
- * trick called the Chinese remainder theorem which finds the least x for:
+ * Our input has the buses all coprime to each other (it would be a simpler problem if they weren't!). Thus, we can take
+ * advantage of a famous number theory trick called the Chinese remainder theorem which finds the least x for:
  * x == a_1 % n_1
  * x == a_2 % n_2
  * x == a_3 % n_3

@@ -1,7 +1,6 @@
 package net.akaritakai.aoc2020;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,17 +30,17 @@ public class Puzzle15 extends AbstractPuzzle {
     }
 
     private static int playGame(List<Integer> input, int rounds) {
-        var history = new HashMap<Integer, Integer>();
+        var history = new Integer[rounds];
         var turn = 1;
         var lastNumber = 0;
         for (var n : input) {
             lastNumber = n;
-            history.put(lastNumber, turn++);
+            history[lastNumber] = turn++;
         }
         while (turn <= rounds) {
-            var index = history.get(lastNumber);
+            var index = history[lastNumber];
             var n = index == null ? 0 : turn - index - 1;
-            history.put(lastNumber, turn++ - 1);
+            history[lastNumber] = turn++ - 1;
             lastNumber = n;
         }
         return lastNumber;

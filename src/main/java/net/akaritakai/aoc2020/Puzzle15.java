@@ -30,7 +30,7 @@ public class Puzzle15 extends AbstractPuzzle {
     }
 
     private static int playGame(List<Integer> input, int rounds) {
-        var history = new Integer[rounds];
+        var history = new int[rounds];
         var turn = 1;
         var lastNumber = 0;
         for (var n : input) {
@@ -39,7 +39,7 @@ public class Puzzle15 extends AbstractPuzzle {
         }
         while (turn <= rounds) {
             var index = history[lastNumber];
-            var n = index == null ? 0 : turn - index - 1;
+            var n = index == 0 ? 0 : turn - index - 1;
             history[lastNumber] = turn++ - 1;
             lastNumber = n;
         }

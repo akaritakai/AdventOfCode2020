@@ -48,7 +48,7 @@ public class Puzzle14 extends AbstractPuzzle {
                 mask = MaskInstruction.parse(line);
             } else if (WriteInstruction.PATTERN.asPredicate().test(line)) {
                 var write = WriteInstruction.parse(line);
-                execute(memory, write.address | mask.mask1, write.value, ~mask.mask2 & ((1L << 36) - 1));
+                execute(memory, write.address | mask.mask1, write.value, ~mask.mask2 & 0xFFFFFFFFFL);
             }
         }
         return String.valueOf(memory.values().stream().mapToLong(i -> i).sum());
@@ -63,7 +63,7 @@ public class Puzzle14 extends AbstractPuzzle {
                 floating >>= 1;
                 i++;
             }
-            floating = (floating & ~1L) << i;
+            floating = (floating & 0xFFFFFFFFEL) << i;
             execute(memory, address, value, floating);
             execute(memory, address ^ (1L << i), value, floating);
         }

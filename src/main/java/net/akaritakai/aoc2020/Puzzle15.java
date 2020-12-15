@@ -35,18 +35,18 @@ public class Puzzle15 extends AbstractPuzzle {
     private static int playGame(List<Integer> input, int rounds) {
         var history = new int[rounds];
         var turn = 1;
-        var lastNumber = 0;
+        var last = 0;
         for (var n : input) {
-            lastNumber = n;
-            history[lastNumber] = turn++;
+            last = n;
+            history[last] = turn++;
         }
         while (turn <= rounds) {
-            var index = history[lastNumber];
+            var index = history[last];
             var n = index == 0 ? 0 : turn - index - 1;
-            history[lastNumber] = turn++ - 1;
-            lastNumber = n;
+            history[last] = turn++ - 1;
+            last = n;
         }
-        return lastNumber;
+        return last;
     }
 
     private List<Integer> input() {

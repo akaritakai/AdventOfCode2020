@@ -41,8 +41,8 @@ public class Puzzle15 extends AbstractPuzzle {
             history[last] = turn++;
         }
         while (turn <= rounds) {
-            var index = history[last];
-            var n = index == 0 ? 0 : turn - index - 1;
+            var i = history[last];
+            var n = i == 0 ? 0 : turn - i - 1;
             history[last] = turn++ - 1;
             last = n;
         }

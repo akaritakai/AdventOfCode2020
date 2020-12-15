@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 /**
  * In Day 15, we are given a Van Eck's sequence with a given prefix and told to compute the nth value.
  *
- * I am not sure there are any speed-ups to be found here.
+ * By storing the last seen index in a lookup table, we can find the solution in O(n).
+ *
+ * Unfortunately, there is no known closed solution to Van Eck's sequence, or other speed-ups that we could take
+ * advantage of.
  */
 public class Puzzle15 extends AbstractPuzzle {
     public Puzzle15(String puzzleInput) {

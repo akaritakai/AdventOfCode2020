@@ -1,4 +1,4 @@
-FROM gradle:6.7-jdk15
+FROM gradle:6.7.1-jdk15
 
 WORKDIR "/opt/aoc"
 

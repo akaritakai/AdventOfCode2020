@@ -29,8 +29,7 @@ public class Puzzle16 extends AbstractPuzzle {
     @Override
     public String solvePart1() {
         var rules = rules();
-        var tickets = otherTickets();
-        var errorRate = tickets.stream()
+        var errorRate = otherTickets().stream()
                 .flatMap(Collection::stream)
                 .mapToInt(i -> i)
                 .filter(i -> rules.values().stream().noneMatch(rule -> rule.test(i)))
@@ -41,10 +40,22 @@ public class Puzzle16 extends AbstractPuzzle {
     @Override
     public String solvePart2() {
         try (var context = new Context()) {
-            var solver = context.mkSolver();
+            // Get our tickets and rules
             var rules = rules();
-            var myTicket = myTicket();
-            var tickets = allValidTickets(rules, myTicket, otherTickets());
+            var tickets = new ArrayList<List<Integer>>();
+            tickets.add(myTicket()); // Our ticket will be the first in the array
+            // Add the other tickets, tossing out any ticket which has invalid values
+            otherTickets().stream()
+                    .filter(ticket -> ticket.stream().allMatch(i ->
+                            rules.values().stream().anyMatch(rule -> rule.test(i))))
+                    .forEach(tickets::add);
+
+            // Define our SAT solver
+            var solver = context.mkSolver();
+
+            // Define the existence of each fields and assert that each field corresponds to an index in a ticket
+            // i.e. a field is associated with a number between 0 to numFields-1; and,
+            //      the value associated with a given field is not shared by any other field
             var fields = new HashMap<String, ArithExpr>();
             for (var field : rules.keySet()) {
                 var expr = (ArithExpr) context.mkConst(context.mkSymbol(field), context.getIntSort());
@@ -53,16 +64,24 @@ public class Puzzle16 extends AbstractPuzzle {
                 solver.add(context.mkLe(expr, context.mkInt(rules.size())));
             }
             solver.add(context.mkDistinct(fields.values().toArray(ArithExpr[]::new)));
+
+            // For each field, test all the tickets to determine which indexes the field could be associated with and
+            // give that restriction to the solver
+            // i.e. field1 == 1 || field1 == 2 || ...
             fields.forEach((field, expr) -> solver.add(context.mkOr(IntStream.range(0, rules.size())
                     .filter(i -> tickets.stream().allMatch(ticket -> rules.get(field).test(ticket.get(i))))
                     .mapToObj(i -> context.mkEq(expr, context.mkInt(i)))
                     .toArray(BoolExpr[]::new))));
+
+            // Solve the SAT
             solver.check();
+
+            // Use our generated model to get our result
             var result = fields.entrySet()
                     .stream()
                     .filter(e -> e.getKey().startsWith("departure"))
                     .map(e -> Integer.parseInt(solver.getModel().eval(e.getValue(), false).toString()))
-                    .mapToLong(i -> myTicket().get(i))
+                    .mapToLong(i -> tickets.get(0).get(i))
                     .reduce((a, b) -> a * b)
                     .orElseThrow();
             return String.valueOf(result);
@@ -93,17 +112,6 @@ public class Puzzle16 extends AbstractPuzzle {
                 .skip(1)
                 .map(Puzzle16::parseTicket)
                 .collect(Collectors.toSet());
-    }
-
-    private static Set<List<Integer>> allValidTickets(Map<String, Predicate<Integer>> rules,
-                                                      List<Integer> myTicket,
-                                                      Collection<List<Integer>> otherTickets) {
-        var tickets = new HashSet<List<Integer>>();
-        tickets.add(myTicket);
-        tickets.addAll(otherTickets);
-        tickets.removeIf(ticket -> !ticket.stream().allMatch(i ->
-                rules.values().stream().anyMatch(rule -> rule.test(i))));
-        return tickets;
     }
 
     private static List<Integer> parseTicket(String ticketString) {

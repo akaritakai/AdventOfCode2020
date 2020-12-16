@@ -39,17 +39,16 @@ public class Puzzle16 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
+        // Get our tickets and rules
+        var rules = rules();
+        var tickets = new ArrayList<List<Integer>>();
+        tickets.add(myTicket()); // Our ticket will be the first in the array
+        // Add the other tickets, tossing out any ticket which has invalid values
+        otherTickets().stream()
+                .filter(ticket -> ticket.stream().allMatch(i ->
+                        rules.values().stream().anyMatch(rule -> rule.test(i))))
+                .forEach(tickets::add);
         try (var context = new Context()) {
-            // Get our tickets and rules
-            var rules = rules();
-            var tickets = new ArrayList<List<Integer>>();
-            tickets.add(myTicket()); // Our ticket will be the first in the array
-            // Add the other tickets, tossing out any ticket which has invalid values
-            otherTickets().stream()
-                    .filter(ticket -> ticket.stream().allMatch(i ->
-                            rules.values().stream().anyMatch(rule -> rule.test(i))))
-                    .forEach(tickets::add);
-
             // Define our SAT solver
             var solver = context.mkSolver();
 
@@ -77,14 +76,13 @@ public class Puzzle16 extends AbstractPuzzle {
             solver.check();
 
             // Use our generated model to get our result
-            var result = fields.entrySet()
+            return String.valueOf(fields.entrySet()
                     .stream()
                     .filter(e -> e.getKey().startsWith("departure"))
                     .map(e -> Integer.parseInt(solver.getModel().eval(e.getValue(), false).toString()))
                     .mapToLong(i -> tickets.get(0).get(i))
                     .reduce((a, b) -> a * b)
-                    .orElseThrow();
-            return String.valueOf(result);
+                    .orElseThrow());
         }
     }
 

@@ -52,7 +52,7 @@ public class Puzzle16 extends AbstractPuzzle {
             // Define our SAT solver
             var solver = context.mkSolver();
 
-            // Define the existence of each fields and assert that each field corresponds to an index in a ticket
+            // Define the existence of the fields and assert that each field corresponds to an index in a ticket
             // i.e. a field is associated with a number between 0 to numFields-1; and,
             //      the value associated with a given field is not shared by any other field
             var fields = new HashMap<String, ArithExpr>();

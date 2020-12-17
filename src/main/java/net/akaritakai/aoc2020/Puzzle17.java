@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
 
+/**
+ * In Day 17, we are tasked with simulating yet another cellular automaton and recording the results.
+ */
 public class Puzzle17 extends AbstractPuzzle {
     public Puzzle17(String puzzleInput) {
         super(puzzleInput);

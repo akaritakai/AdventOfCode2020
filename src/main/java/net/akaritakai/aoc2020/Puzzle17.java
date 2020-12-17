@@ -1,5 +1,6 @@
 package net.akaritakai.aoc2020;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.IntStream;
@@ -44,23 +45,24 @@ public class Puzzle17 extends AbstractPuzzle {
             }
         }
 
+        @SuppressWarnings("DuplicatedCode")
         public void round3D() {
             var set = new HashSet<Point3D>();
             // Handle active points
             activeCubes3D.forEach(point -> {
                 var adjacent = point.adjacentPoints();
-                var numAdjacent = activeCubes3D.stream().filter(adjacent::contains).count();
+                var numAdjacent = Arrays.stream(adjacent).filter(p -> activeCubes3D.contains(p)).count();
                 if (numAdjacent == 2 || numAdjacent == 3) {
                     set.add(point);
                 }
             });
             // Handle inactive points
             activeCubes3D.stream()
-                    .flatMap(point -> point.adjacentPoints().stream())
+                    .flatMap(point -> Arrays.stream(point.adjacentPoints()))
                     .filter(point -> !activeCubes3D.contains(point))
                     .forEach(point -> {
                         var adjacent = point.adjacentPoints();
-                        var numAdjacent = activeCubes3D.stream().filter(adjacent::contains).count();
+                        var numAdjacent = Arrays.stream(adjacent).filter(p -> activeCubes3D.contains(p)).count();
                         if (numAdjacent == 3) {
                             set.add(point);
                         }
@@ -68,23 +70,24 @@ public class Puzzle17 extends AbstractPuzzle {
             activeCubes3D = set;
         }
 
+        @SuppressWarnings("DuplicatedCode")
         public void round4D() {
             var set = new HashSet<Point4D>();
             // Handle active points
             activeCubes4D.forEach(point -> {
                 var adjacent = point.adjacentPoints();
-                var numAdjacent = activeCubes4D.stream().filter(adjacent::contains).count();
+                var numAdjacent = Arrays.stream(adjacent).filter(p -> activeCubes4D.contains(p)).count();
                 if (numAdjacent == 2 || numAdjacent == 3) {
                     set.add(point);
                 }
             });
             // Handle inactive points
             activeCubes4D.stream()
-                    .flatMap(point -> point.adjacentPoints().stream())
+                    .flatMap(point -> Arrays.stream(point.adjacentPoints()))
                     .filter(point -> !activeCubes4D.contains(point))
                     .forEach(point -> {
                         var adjacent = point.adjacentPoints();
-                        var numAdjacent = activeCubes4D.stream().filter(adjacent::contains).count();
+                        var numAdjacent = Arrays.stream(adjacent).filter(p -> activeCubes4D.contains(p)).count();
                         if (numAdjacent == 3) {
                             set.add(point);
                         }
@@ -94,13 +97,14 @@ public class Puzzle17 extends AbstractPuzzle {
     }
 
     private record Point3D(long x, long y, long z) {
-        private Set<Point3D> adjacentPoints() {
-            var adjacent = new HashSet<Point3D>();
+        private Point3D[] adjacentPoints() {
+            var adjacent = new Point3D[26];
+            var i = 0;
             for (var dx = -1; dx <= 1; dx++) {
                 for (var dy = -1; dy <= 1; dy++) {
                     for (var dz = -1; dz <= 1; dz++) {
                         if (dx == 0 && dy == 0 && dz == 0) continue;
-                        adjacent.add(new Point3D(x + dx, y + dy, z + dz));
+                        adjacent[i++] = new Point3D(x + dx, y + dy, z + dz);
                     }
                 }
             }
@@ -109,14 +113,15 @@ public class Puzzle17 extends AbstractPuzzle {
     }
 
     private record Point4D(long x, long y, long z, long w) {
-        private Set<Point4D> adjacentPoints() {
-            var adjacent = new HashSet<Point4D>();
+        private Point4D[] adjacentPoints() {
+            var adjacent = new Point4D[80];
+            var i = 0;
             for (var dx = -1; dx <= 1; dx++) {
                 for (var dy = -1; dy <= 1; dy++) {
                     for (var dz = -1; dz <= 1; dz++) {
                         for (var dw = -1; dw <= 1; dw++) {
                             if (dx == 0 && dy == 0 && dz == 0 && dw == 0) continue;
-                            adjacent.add(new Point4D(x + dx, y + dy, z + dz, w + dw));
+                            adjacent[i++] = new Point4D(x + dx, y + dy, z + dz, w + dw);
                         }
                     }
                 }

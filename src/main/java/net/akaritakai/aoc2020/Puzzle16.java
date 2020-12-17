@@ -60,7 +60,7 @@ public class Puzzle16 extends AbstractPuzzle {
                 var expr = (ArithExpr) context.mkConst(context.mkSymbol(field), context.getIntSort());
                 fields.put(field, expr);
                 solver.add(context.mkGe(expr, context.mkInt(0)));
-                solver.add(context.mkLe(expr, context.mkInt(rules.size())));
+                solver.add(context.mkLt(expr, context.mkInt(rules.size())));
             }
             solver.add(context.mkDistinct(fields.values().toArray(ArithExpr[]::new)));
 

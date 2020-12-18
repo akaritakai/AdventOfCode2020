@@ -21,7 +21,8 @@ public class Main {
             new Puzzle14(PUZZLE_INPUT_FETCHER.getPuzzleInput(14)),
             new Puzzle15(PUZZLE_INPUT_FETCHER.getPuzzleInput(15)),
             new Puzzle16(PUZZLE_INPUT_FETCHER.getPuzzleInput(16)),
-            new Puzzle17(PUZZLE_INPUT_FETCHER.getPuzzleInput(17))
+            new Puzzle17(PUZZLE_INPUT_FETCHER.getPuzzleInput(17)),
+            new Puzzle18(PUZZLE_INPUT_FETCHER.getPuzzleInput(18))
     );
 
     public static void main(String[] args) {

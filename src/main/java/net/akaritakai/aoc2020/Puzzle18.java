@@ -43,28 +43,15 @@ public class Puzzle18 extends AbstractPuzzle {
     public static Long evaluatePostfix(List<String> tokens) {
         var stack = new Stack<Long>();
         for (var token : tokens) {
-            switch (token) {
-                case "+" -> {
-                    var rhs = stack.pop();
-                    var lhs = stack.pop();
-                    stack.push(lhs + rhs);
+            if (token.matches("\\d+")) {
+                stack.push(Long.parseLong(token));
+            } else {
+                var rhs = stack.pop();
+                var lhs = stack.pop();
+                switch (token) {
+                    case "+" -> stack.push(lhs + rhs);
+                    case "*" -> stack.push(lhs * rhs);
                 }
-                case "-" -> {
-                    var rhs = stack.pop();
-                    var lhs = stack.pop();
-                    stack.push(lhs - rhs);
-                }
-                case "*" -> {
-                    var rhs = stack.pop();
-                    var lhs = stack.pop();
-                    stack.push(lhs * rhs);
-                }
-                case "/" -> {
-                    var rhs = stack.pop();
-                    var lhs = stack.pop();
-                    stack.push(lhs / rhs);
-                }
-                default -> stack.push(Long.parseLong(token));
             }
         }
         return stack.pop();
@@ -73,11 +60,10 @@ public class Puzzle18 extends AbstractPuzzle {
     public static List<String> infixToPostfix(String value, BiPredicate<String, String> precedence) {
         var output = new ArrayList<String>();
         var stack = new Stack<String>();
-        value = value.replaceAll("\\s+", "");
-        var matcher = Pattern.compile("(\\d+|[+*()])").matcher(value);
+        var matcher = Pattern.compile("(\\d+|[+*()])").matcher(value.replaceAll("\\s+", ""));
         while (matcher.find()) {
             var token = matcher.group(1);
-            if (token.matches("[0-9]+")) {
+            if (token.matches("\\d+")) {
                 output.add(token);
             } else if (token.matches("[+*]")) {
                 while (!stack.isEmpty() && precedence.test(stack.peek(), token) && !stack.peek().equals("(")) {
@@ -90,9 +76,7 @@ public class Puzzle18 extends AbstractPuzzle {
                 while (!stack.peek().equals("(")) {
                     output.add(stack.pop());
                 }
-                if (stack.peek().equals("(")) {
-                    stack.pop();
-                }
+                stack.pop();
             }
         }
         while (!stack.isEmpty()) {

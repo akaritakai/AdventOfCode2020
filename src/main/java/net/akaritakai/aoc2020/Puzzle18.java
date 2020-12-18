@@ -24,23 +24,19 @@ public class Puzzle18 extends AbstractPuzzle {
 
     @Override
     public String solvePart1() {
-        var sum = 0L;
-        for (var line : getPuzzleInput().split("\n")) {
-            sum += evaluatePostfix(infixToPostfix(line, (value, stack) -> true));
-        }
-        return String.valueOf(sum);
+        return String.valueOf(calculateSum((stack, value) -> true));
     }
 
     @Override
     public String solvePart2() {
-        var sum = 0L;
-        for (var line : getPuzzleInput().split("\n")) {
-            sum += evaluatePostfix(infixToPostfix(line, (stack, value) -> !stack.equals("*") || !value.equals("+")));
-        }
-        return String.valueOf(sum);
+        return String.valueOf(calculateSum((stack, value) -> !stack.equals("*") || !value.equals("+")));
     }
 
-    public static Long evaluatePostfix(List<String> tokens) {
+    private Long calculateSum(BiPredicate<String, String> precedence) {
+        return getPuzzleInput().lines().mapToLong(line -> evaluatePostfix(infixToPostfix(line, precedence))).sum();
+    }
+
+    private static Long evaluatePostfix(List<String> tokens) {
         var stack = new Stack<Long>();
         for (var token : tokens) {
             if (token.matches("\\d+")) {
@@ -57,7 +53,7 @@ public class Puzzle18 extends AbstractPuzzle {
         return stack.pop();
     }
 
-    public static List<String> infixToPostfix(String value, BiPredicate<String, String> precedence) {
+    private static List<String> infixToPostfix(String value, BiPredicate<String, String> precedence) {
         var output = new ArrayList<String>();
         var stack = new Stack<String>();
         var matcher = Pattern.compile("(\\d+|[+*()])").matcher(value.replaceAll("\\s+", ""));

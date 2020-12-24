@@ -4,6 +4,10 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * In Day 22, we have a simple recursively-defined game. Critically, we spend a lot of time performing head removal and
+ * tail addition (FIFO), so using a queue structure with O(1) additions and removals is critical.
+ */
 public class Puzzle22 extends AbstractPuzzle {
     public Puzzle22(String puzzleInput) {
         super(puzzleInput);
@@ -42,6 +46,7 @@ public class Puzzle22 extends AbstractPuzzle {
         return String.valueOf(score(winningDeck));
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private static LinkedList<Integer> playGame(LinkedList<Integer> player1, LinkedList<Integer> player2) {
         var states = new HashSet<DeckState>();
         while (!player1.isEmpty() && !player2.isEmpty()) {
@@ -75,6 +80,7 @@ public class Puzzle22 extends AbstractPuzzle {
         }
     }
 
+    @SuppressWarnings("DuplicatedCode")
     private static boolean playSubGame(LinkedList<Integer> player1, LinkedList<Integer> player2) {
         // During a sub game, if player 1 has the card with the highest number and the value of that card is more than
         // the players remaining deck size, then player 1 wins.

@@ -1,5 +1,9 @@
 package net.akaritakai.aoc2020;
 
+/**
+ * In Day 23, we have another game where the choice of data structure is important. This game involves being able to
+ * have insertions and removals in the middle of a list take O(1), and thus the structure is perfect for a linked list.
+ */
 public class Puzzle23 extends AbstractPuzzle {
     public Puzzle23(String puzzleInput) {
         super(puzzleInput);

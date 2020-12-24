@@ -5,6 +5,10 @@ import net.akaritakai.aoc2020.geom2d.Point;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * In Day 20, we are given a set of jig-saw puzzle pieces that need to be rotated, flipped, and arranged into a jig-saw
+ * puzzle. The puzzle is assembled through a simple backtracking algorithm.
+ */
 public class Puzzle20 extends AbstractPuzzle {
     public Puzzle20(String puzzleInput) {
         super(puzzleInput);
@@ -19,7 +23,8 @@ public class Puzzle20 extends AbstractPuzzle {
     public String solvePart1() {
         var tiles = tiles();
         var length = (int) Math.sqrt(tiles.size());
-        var arrangement = findArrangement(length, tiles, new HashMap<>(), new HashSet<>(tiles.keySet()), new Point(0, 0));
+        var arrangement = findArrangement(length, tiles, new HashMap<>(),
+                new HashSet<>(tiles.keySet()), new Point(0, 0));
         var upperLeft = arrangement.get(new Point(0, 0)).number;
         var lowerLeft = arrangement.get(new Point(0, length - 1)).number;
         var upperRight = arrangement.get(new Point(length - 1, 0)).number;
@@ -28,11 +33,13 @@ public class Puzzle20 extends AbstractPuzzle {
     }
 
     @Override
+    @SuppressWarnings("DuplicatedCode")
     public String solvePart2() {
         // Discover the arrangement and size of the image
         var tiles = tiles();
         var length = (int) Math.sqrt(tiles.size());
-        var arrangement = findArrangement(length, tiles, new HashMap<>(), new HashSet<>(tiles.keySet()), new Point(0, 0));
+        var arrangement = findArrangement(length, tiles, new HashMap<>(),
+                new HashSet<>(tiles.keySet()), new Point(0, 0));
         var tileLength = arrangement.get(new Point(0, 0)).data.length;
         var imageSize = length * (tileLength - 2);
 
@@ -111,7 +118,8 @@ public class Puzzle20 extends AbstractPuzzle {
             // Try this tile
             selectedTiles.put(point, tile);
             tilesRemaining.remove(tile.number);
-            var result = findArrangement(length, allTiles, selectedTiles, tilesRemaining, nextPoint(length, point));
+            var result = findArrangement(length, allTiles, selectedTiles, tilesRemaining,
+                    nextPoint(length, point));
             if (!result.isEmpty()) {
                 return result; // We found the arrangement
             } else {

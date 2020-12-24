@@ -3,6 +3,11 @@ package net.akaritakai.aoc2020;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * In Day 19, we are given a CFG grammar and asked how many of the given strings are within the grammar's language.
+ * Since the input was very close to being in CNF form, we convert it to CNF and then apply the CYK algorithm which is
+ * able to test the strings in O(|rules| * |string size|)^3.
+ */
 public class Puzzle19 extends AbstractPuzzle {
     public Puzzle19(String puzzleInput) {
         super(puzzleInput);

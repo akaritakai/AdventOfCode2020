@@ -9,6 +9,9 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+/**
+ * In Day 21, we have another simple SAT puzzle like Day 16.
+ */
 public class Puzzle21 extends AbstractPuzzle {
     public Puzzle21(String puzzleInput) {
         super(puzzleInput);

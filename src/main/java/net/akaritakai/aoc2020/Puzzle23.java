@@ -21,11 +21,11 @@ public class Puzzle23 extends AbstractPuzzle {
     public String solvePart1() {
         var cups = cups(9);
         game(cups, 100);
-        var cup = 1;
+        var current = 1;
         var sb = new StringBuilder();
         for (var i = 0; i < 8; i++) {
-            sb.append(cups[cup]);
-            cup = cups[cup];
+            sb.append(cups[current]);
+            current = cups[current];
         }
         return sb.toString();
     }
@@ -38,13 +38,13 @@ public class Puzzle23 extends AbstractPuzzle {
     }
 
     private void game(int[] cups, int moves) {
-        int cup = Integer.parseInt(getPuzzleInput().trim().substring(0, 1));
+        int current = Integer.parseInt(getPuzzleInput().trim().substring(0, 1));
         for (var i = 0; i < moves; i++) {
-            var cup1 = cups[cup];
+            var cup1 = cups[current];
             var cup2 = cups[cup1];
             var cup3 = cups[cup2];
 
-            var dest = cup;
+            var dest = current;
             do {
                 dest--;
                 if (dest == 0) {
@@ -52,11 +52,11 @@ public class Puzzle23 extends AbstractPuzzle {
                 }
             } while (dest == cup1 || dest == cup2 || dest == cup3);
 
-            cups[cup] = cups[cup3];
             var temp = cups[dest];
+            cups[current] = cups[cup3];
             cups[dest] = cup1;
             cups[cup3] = temp;
-            cup = cups[cup];
+            current = cups[current];
         }
     }
 

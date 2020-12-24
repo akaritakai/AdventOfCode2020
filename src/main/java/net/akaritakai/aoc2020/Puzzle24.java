@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static net.akaritakai.aoc2020.Puzzle24.HexagonalDirection.*;
+
 /**
  * In Day 24, we are given a problem that uses hexagonal tiling and then requires a cellular automata simulation like
  * Day 17.
@@ -87,18 +89,18 @@ public class Puzzle24 extends AbstractPuzzle {
         var directions = new ArrayList<HexagonalDirection>();
         for (var i = 0; i < s.length(); i++) {
             switch (s.charAt(i)) {
-                case 'e' -> directions.add(HexagonalDirection.EAST);
-                case 'w' -> directions.add(HexagonalDirection.WEST);
+                case 'e' -> directions.add(EAST);
+                case 'w' -> directions.add(WEST);
                 case 's' -> {
                     switch (s.charAt(++i)) {
-                        case 'e' -> directions.add(HexagonalDirection.SOUTH_EAST);
-                        case 'w' -> directions.add(HexagonalDirection.SOUTH_WEST);
+                        case 'e' -> directions.add(SOUTH_EAST);
+                        case 'w' -> directions.add(SOUTH_WEST);
                     }
                 }
                 case 'n' -> {
                     switch (s.charAt(++i)) {
-                        case 'e' -> directions.add(HexagonalDirection.NORTH_EAST);
-                        case 'w' -> directions.add(HexagonalDirection.NORTH_WEST);
+                        case 'e' -> directions.add(NORTH_EAST);
+                        case 'w' -> directions.add(NORTH_WEST);
                     }
                 }
             }
@@ -109,16 +111,16 @@ public class Puzzle24 extends AbstractPuzzle {
     private record HexagonalPoint(long x, long y) {
         private Set<HexagonalPoint> adjacent() {
             return Set.of(
-                    HexagonalDirection.EAST.move(this),
-                    HexagonalDirection.SOUTH_EAST.move(this),
-                    HexagonalDirection.SOUTH_WEST.move(this),
-                    HexagonalDirection.WEST.move(this),
-                    HexagonalDirection.NORTH_WEST.move(this),
-                    HexagonalDirection.NORTH_EAST.move(this));
+                    EAST.move(this),
+                    SOUTH_EAST.move(this),
+                    SOUTH_WEST.move(this),
+                    WEST.move(this),
+                    NORTH_WEST.move(this),
+                    NORTH_EAST.move(this));
         }
     }
 
-    private enum HexagonalDirection {
+    enum HexagonalDirection {
         EAST (1, -1),
         SOUTH_EAST (1, 0),
         SOUTH_WEST (0, 1),

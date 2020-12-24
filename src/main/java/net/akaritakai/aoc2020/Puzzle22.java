@@ -83,7 +83,7 @@ public class Puzzle22 extends AbstractPuzzle {
     @SuppressWarnings("DuplicatedCode")
     private static boolean playSubGame(LinkedList<Integer> player1, LinkedList<Integer> player2) {
         // During a sub game, if player 1 has the card with the highest number and the value of that card is more than
-        // the players remaining deck size, then player 1 wins.
+        // the players' remaining deck size, then player 1 wins.
         var max1 = player1.stream().mapToInt(i -> i).max().orElseThrow();
         var max2 = player2.stream().mapToInt(i -> i).max().orElseThrow();
         if (max1 > max2 && max1 > player1.size() + player2.size()) {

@@ -79,14 +79,11 @@ public class Puzzle21 extends AbstractPuzzle {
             solver.add(context.mkDistinct(allergens.values().toArray(ArithExpr[]::new)));
 
             // Now, lets define our constraints
-            labels.forEach((labelIngredients, labelAllergens) -> {
-                labelAllergens.forEach(allergen -> {
+            labels.forEach((labelIngredients, labelAllergens) -> labelAllergens.forEach(allergen ->
                     solver.add(context.mkOr(ingredients.entrySet().stream()
                             .filter(e -> labelIngredients.contains(e.getKey()))
                             .map(e -> context.mkEq(allergens.get(allergen), context.mkInt(e.getValue())))
-                            .toArray(BoolExpr[]::new)));
-                });
-            });
+                            .toArray(BoolExpr[]::new)))));
 
             // Solve it!
             solver.check();

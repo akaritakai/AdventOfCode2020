@@ -30,6 +30,6 @@ public class Puzzle25 extends AbstractPuzzle {
 
     @Override
     public String solvePart2() {
-        return "Day 25 has not part 2";
+        return "Day 25 has no part 2";
     }
 }

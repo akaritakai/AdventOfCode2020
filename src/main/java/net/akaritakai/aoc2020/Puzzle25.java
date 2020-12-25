@@ -11,7 +11,8 @@ package net.akaritakai.aoc2020;
  * Where the shared secret is:
  * C^d mod p = g^(cd) mod p = g^(dc) mod p = D^c mod p
  *
- * Solving this quickly is a hard problem, but our input is small enough that brute force suffices.
+ * Solving this quickly is a hard problem (see the discrete logarithm problem), but our input is small enough that a
+ * simple brute-force attack suffices.
  */
 public class Puzzle25 extends AbstractPuzzle {
     public Puzzle25(String puzzleInput) {

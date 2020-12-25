@@ -17,10 +17,6 @@ public enum Direction {
         this.dy = dy;
     }
 
-    public Point move(Point point) {
-        return new Point(point.x() + dx, point.y() + dy);
-    }
-
     public Point move(Point point, long distance) {
         return new Point(point.x() + dx * distance, point.y() + dy * distance);
     }
@@ -61,25 +57,6 @@ public enum Direction {
                 if (newDirection == NORTH) return RIGHT;
             }
         }
-        throw new UnsupportedOperationException("Direction change is not a 90 degree turn (i.e. 0 degrees or 180 degrees)");
-    }
-
-    public static Direction fromSegment(Point start, Point end) {
-        long dx = end.x() - start.x();
-        long dy = end.y() - start.y();
-        if (dx == 0 && dy > 0) return NORTH;
-        if (dx == 0 && dy < 0) return SOUTH;
-        if (dx > 0 && dy == 0) return EAST;
-        if (dx < 0 && dy == 0) return WEST;
-        throw new IllegalArgumentException("Line segment is not vertical or horizontal");
-    }
-
-    public Direction opposite() {
-        return switch (this) {
-            case NORTH -> SOUTH;
-            case SOUTH -> NORTH;
-            case EAST -> WEST;
-            case WEST -> EAST;
-        };
+        throw new UnsupportedOperationException("Direction change is not a multiple of a 90 degree turn");
     }
 }

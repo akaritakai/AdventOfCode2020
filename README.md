@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.com/akaritakai/AdventOfCode2020.svg)](https://travis-ci.com/akaritakai/AdventOfCode2020)
 [![Code Coverage](https://img.shields.io/codecov/c/github/akaritakai/AdventOfCode2020.svg)](https://codecov.io/gh/akaritakai/AdventOfCode2020)
 
-This repo contains my Advent Of Code 2020 solutions in Java 15.
+This repo contains my Advent Of Code 2020 solutions in Java 15. It covers all 25 days of puzzles.
 
 ## Providing Your Puzzle Input
 
